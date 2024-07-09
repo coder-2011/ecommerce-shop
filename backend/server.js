@@ -1,25 +1,21 @@
 import express from 'express';
-import products from './data/products.js';
 import dotenv from 'dotenv';
 dotenv.config();
+import connectDB from './config/db.js';
+import productRoutes from './routes/productRoutes.js';
+
 const port = process.env.PORT || 5000;
-;
+
+connectDB();
+
 const app = express();
 
-app.get('/', (request, response) => {
-    response.send('API is running!');
+app.use('/api/products', productRoutes);
+
+app.get('/', (req, res) => {
+  res.send('API is running...');
 });
 
-app.get('/api/products', (request, response) => {
-    response.json(products);
-})
-
-app.get('/api/products/:id', (request, response) => {
-    const product = products.find(p => p._id === request.params.id);
-        response.json(product);
-        response.status(404).json({message: 'Product not found!'});
-})
-
-
-
-app.listen(port, () => console.log(`Server runnning on ${port}`));
+app.listen(port, () =>
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`)
+);
