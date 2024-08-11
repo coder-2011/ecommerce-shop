@@ -2,15 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  Row,
-  Col,
-  Image,
-  ListGroup,
-  Card,
-  Button,
-  Form,
-} from 'react-bootstrap';
+import {Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlice';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
@@ -99,8 +91,7 @@ const ProductScreen = () => {
                           <Form.Control
                             as='select'
                             value={qty}
-                            onChange={(e) => setQty(e.target.value)}
-                          >
+                            onChange = {(e) => setQty(Number(e.target.value))}>
                             {[...Array(product.countInStock).keys()].map(
                               (x) => (
                                 <option key={x + 1} value={x + 1}>
